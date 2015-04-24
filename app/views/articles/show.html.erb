@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @article.name %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @article.content %>
+</p>
+
+
+<%  if @article.comments.present? %>
+<h2> Comments</h2>
+<%end%>
+<% @article.comments.each do |ac| %>
+<%= ac.name %>
+<%= ac.content %> 
+<%= link_to "Delete", [ac.article, ac], :method => :delete, :data => {:confirm => "are you sure"}%>
+<%end%> 
+
+
+
+<h2>New Comment</h2>
+<%= form_for [ @article, Comment.new ] do |f| %>
+<div id="page-wrapper">
+<%= f.label :name %>
+<%= f.text_field :name %>
+</div> 
+
+<div id="page-wrapper">
+<%= f.label :content %>
+<%= f.text_area :content %>
+</div>
+<div id="page-wrapper">
+<%= f.submit %>
+</div>
+<%end%>
+</div>
+
+
+
+
+
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>
